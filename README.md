@@ -1,0 +1,1 @@
+# auth-sequelize-passport-app
