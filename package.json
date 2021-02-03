@@ -1,0 +1,25 @@
+{
+  "name": "auth-sequelize-passport-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaylamuraoka/auth-sequelize-passport-app.git"
+  },
+  "keywords": [
+    "authentication",
+    "express"
+  ],
+  "author": "Kayla Muraoka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kaylamuraoka/auth-sequelize-passport-app/issues"
+  },
+  "homepage": "https://github.com/kaylamuraoka/auth-sequelize-passport-app#readme"
+}
