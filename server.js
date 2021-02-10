@@ -28,6 +28,7 @@ app.use(passport.session());
 app.get("/", (req, res) => {
   res.send("Hello");
 });
+require("./routes/auth-api-routes.js")(app);
 
 // LISTENER - Syncing our database and logging a message to the user upon success
 db.sequelize
