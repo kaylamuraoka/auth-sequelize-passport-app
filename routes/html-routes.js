@@ -13,14 +13,14 @@ module.exports = (app) => {
   // Route for the user's dashboard after logging in.
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the login page
-  app.get("/dashboard", isAuthenticated, (req, res) => {
+  app.get("/user-dashboard", isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, "../client/user-dashboard.html"));
   });
 
   app.get("/login", (req, res) => {
     if (req.user) {
       // user already has an account send them to the user's dashboard
-      res.redirect("/dashboard");
+      res.redirect("/user-dashboard");
     }
     res.sendFile(path.join(__dirname, "../client/login.html"));
   });

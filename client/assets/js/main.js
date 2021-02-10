@@ -128,6 +128,36 @@ function authErrorAlert(title, subtext, confirmButtonText, destination) {
     });
 }
 
+// Function that alerts the user that their credentials is correect and they are being redirected to their dashboard
+function succcessRedirectAlert(title, destination) {
+  Swal.fire({
+    title: title,
+    icon: "success",
+    html: "<b></b> milliseconds left.",
+    timer: 1200,
+    timerProgressBar: true,
+    didOpen: () => {
+      Swal.showLoading();
+      timerInterval = setInterval(() => {
+        const content = Swal.getContent();
+        if (content) {
+          const b = content.querySelector("b");
+          if (b) {
+            b.textContent = Swal.getTimerLeft();
+          }
+        }
+      }, 100);
+    },
+    willClose: () => {
+      clearInterval(timerInterval);
+    },
+  }).then((result) => {
+    if (result.dismiss === Swal.DismissReason.timer) {
+      window.location.replace(destination);
+    }
+  });
+}
+
 function successAlert(title, destination) {
   Swal.fire({
     icon: "success",

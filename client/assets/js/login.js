@@ -35,7 +35,7 @@ $(document).ready(function () {
     }
   });
 
-  // loginUser does a post to our "api/login" route and if successful, redirects us the the members page
+  // loginUser does a post to our "api/login" route and if successful, redirects us the the user-dashboard page
   const loginUser = (userData) => {
     $.ajax({
       type: "POST",
@@ -43,7 +43,7 @@ $(document).ready(function () {
       data: userData,
     })
       .then(() => {
-        succcessfulLoginAlert();
+        succcessRedirectAlert("Logging you in", "/user-dashboard");
       })
       .catch((error) => {
         const msg = error.responseJSON.message;
@@ -102,34 +102,4 @@ $(document).ready(function () {
       );
     }
   });
-
-  // Function that alerts the user that their credentials is correect and they are being redirected to their dashboard
-  function succcessfulLoginAlert() {
-    Swal.fire({
-      title: "Logging you in",
-      icon: "success",
-      html: "<b></b> milliseconds left.",
-      timer: 1500,
-      timerProgressBar: true,
-      didOpen: () => {
-        Swal.showLoading();
-        timerInterval = setInterval(() => {
-          const content = Swal.getContent();
-          if (content) {
-            const b = content.querySelector("b");
-            if (b) {
-              b.textContent = Swal.getTimerLeft();
-            }
-          }
-        }, 100);
-      },
-      willClose: () => {
-        clearInterval(timerInterval);
-      },
-    }).then((result) => {
-      if (result.dismiss === Swal.DismissReason.timer) {
-        window.location.replace("/members");
-      }
-    });
-  }
 });
