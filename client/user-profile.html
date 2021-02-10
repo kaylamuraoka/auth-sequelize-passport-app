@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta information -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Link to Bootstrap v. 4.5 stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <!-- Bootswatch CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css"
+    />
+    <!-- Custom stylesheet -->
+    <link href="./assets/stylesheets/style.css" rel="stylesheet" />
+
+    <title>User Profile</title>
+
+    <!-- Link to Favicon  -->
+    <link rel="icon" type="image/jpg" href="./assets/images/logo.png" />
+  </head>
+
+  <body>
+    <!-- Start of navigation menu -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarColor01"
+        aria-controls="navbarColor01"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/user-dashboard">Home </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/user-profile"
+              >User Profile <span class="sr-only">(current)</span></a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              data-toggle="dropdown"
+              href="#"
+              role="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >Dropdown</a
+            >
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input
+            class="form-control mr-sm-2"
+            type="text"
+            placeholder="Search"
+          />
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">
+            Search
+          </button>
+        </form>
+      </div>
+    </nav>
+    <!-- End of navigation menu -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <h2 class="text-center">Update Your Profile</h2>
+          <hr />
+          <form class="update-user pt-1">
+            <!-- Error alerts section -->
+            <div
+              style="display: none"
+              id="alert"
+              class="alert alert-danger"
+              role="alert"
+            >
+              <span
+                class="glyphicon glyphicon-exclamation-sign"
+                aria-hidden="true"
+              ></span>
+              <span class="sr-only">Error:</span> <span class="ml-2 msg"></span>
+            </div>
+            <!-- Name input -->
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label for="firstName-input">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="First name"
+                  id="firstName-input"
+                  required
+                />
+                <small id="first-name-validation" class="form-text"></small>
+              </div>
+              <div class="form-group col-6">
+                <label for="lastName-input">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                  id="lastName-input"
+                  required
+                />
+                <small id="last-name-validation" class="form-text"></small>
+              </div>
+            </div>
+            <div class="form-row">
+              <!-- Email Input -->
+              <div class="form-group col-7">
+                <label for="email-input">Email Address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email-input"
+                  placeholder="Email Address"
+                  required
+                />
+                <small id="email-validation" class="form-text"></small>
+              </div>
+              <!-- Phone Input -->
+              <div class="form-group col-5">
+                <label for="phone-input">Phone Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phone-input"
+                  pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                  placeholder="Phone Number"
+                  required
+                />
+                <small id="phone-validation" class="form-text"></small>
+              </div>
+            </div>
+
+            <a href="/user-profile">Change your Password</a>
+            <button type="submit" class="btn btn-default">
+              Update Profile
+            </button>
+          </form>
+          <br />
+          <p>
+            <strong>Profile last updated on: </strong
+            ><span id="lastUpdate"></span>
+          </p>
+          <!-- Button trigger delete account confirmation modal -->
+          <button class="btn btn-danger delete-user">
+            <i class="fas fa-trash-alt mr-2"></i>Delete Account
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Alert styling  -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- jQuery CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Jquery  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Font Awesome kit's code -->
+    <script
+      src="https://kit.fontawesome.com/b7705bf7e8.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Custom JS files -->
+    <script type="text/javascript" src="./assets/js/main.js"></script>
+    <script type="text/javascript" src="./assets/js/user-profile.js"></script>
+  </body>
+</html>
