@@ -18,10 +18,17 @@ app.get("/", (req, res) => {
 
 // LISTENER
 // Syncing our database and logging a message to the user upon success
-db.sequelize.sync({ force: true }).then(() => {
-  app.listen(PORT, () => {
-    console.log(
-      `==> 🌎 Listening on port ${PORT}. Visit http://localhost:${PORT} in your browser.`
-    );
+db.sequelize
+  .sync({ force: true })
+  .then(() => {
+    // ok ... everything is nice!
+    console.log("All models were synchronized successfully.");
+    app.listen(PORT, () => {
+      console.log(
+        `==> 🌎 Listening on port ${PORT}. Visit http://localhost:${PORT} in your browser.`
+      );
+    });
+  })
+  .catch((err) => {
+    console.log(err);
   });
-});
