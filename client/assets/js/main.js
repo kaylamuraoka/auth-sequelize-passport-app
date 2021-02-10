@@ -169,19 +169,47 @@ function successAlert(title, destination) {
   });
 }
 
+function confirmDeleteAlert(
+  title,
+  deleteMsg,
+  cancelMsg,
+  deleteFunction,
+  cancelDestination
+) {
+  const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success m-2",
+      cancelButton: "btn btn-danger m-2",
+    },
+    buttonsStyling: false,
+  });
+
+  swalWithBootstrapButtons
+    .fire({
+      title: title,
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+      reverseButtons: true,
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        swalWithBootstrapButtons
+          .fire("Deleted!", deleteMsg, "success")
+          .then(() => {
+            deleteFunction();
+          });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        swalWithBootstrapButtons
+          .fire("Cancelled", cancelMsg, "error")
+          .then(() => {
+            window.location.replace(cancelDestination);
+          });
+      }
+    });
+}
+
 // -------------------------------------------------------------------------------------
 // FUNCTIONS FOR AUTH API CALLS
-
-// This function does an API call to delete user
-const deleteProfile = () => {
-  $.ajax({
-    method: "DELETE",
-    url: "/api/user_data",
-  })
-    .then(() => {
-      window.location.replace("/logout");
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
