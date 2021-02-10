@@ -24,4 +24,12 @@ module.exports = (app) => {
     }
     res.sendFile(path.join(__dirname, "../client/login.html"));
   });
+
+  app.get("/signup", (req, res) => {
+    // If the user already has an account send them to the user-dashboard page
+    if (req.user) {
+      res.redirect("/user-dashboard");
+    }
+    res.sendFile(path.join(__dirname, "../client/signup.html"));
+  });
 };
