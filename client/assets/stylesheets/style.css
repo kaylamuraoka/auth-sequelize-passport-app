@@ -1,0 +1,9 @@
+/* Styling page greeting */
+#greeting {
+  text-transform: capitalize;
+}
+
+input#firstName-input,
+input#lastName-input {
+  text-transform: capitalize;
+}
