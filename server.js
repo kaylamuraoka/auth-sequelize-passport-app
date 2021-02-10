@@ -26,10 +26,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // ROUTES - Requiring our routes as we've configured them
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
 require("./routes/auth-api-routes.js")(app);
+require("./routes/html-routes.js")(app);
 
 // LISTENER - Syncing our database and logging a message to the user upon success
 db.sequelize
