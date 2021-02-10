@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta information -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Link to Bootstrap v. 4.5 stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <!-- Bootswatch CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css"
+    />
+    <!-- Animate CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <!-- Custom stylesheet -->
+    <link href="./assets/stylesheets/style.css" rel="stylesheet" />
+
+    <title>Sign Up</title>
+
+    <!-- Link to Favicon  -->
+    <link rel="icon" type="image/jpg" href="./assets/images/logo.png" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <h2 class="text-center">Create Account</h2>
+          <hr />
+          <form class="signup pt-1">
+            <!-- Error alerts section -->
+            <div
+              style="display: none"
+              id="alert"
+              class="alert alert-danger"
+              role="alert"
+            >
+              <span
+                class="glyphicon glyphicon-exclamation-sign"
+                aria-hidden="true"
+              ></span>
+              <span class="sr-only">Error:</span> <span class="ml-2 msg"></span>
+            </div>
+            <!-- Name input -->
+            <div class="form-row">
+              <div class="form-group col-6">
+                <label for="firstName-input">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="First name"
+                  id="firstName-input"
+                  required
+                />
+                <small id="first-name-validation" class="form-text"></small>
+              </div>
+              <div class="form-group col-6">
+                <label for="lastName-input">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Last name"
+                  id="lastName-input"
+                  required
+                />
+                <small id="last-name-validation" class="form-text"></small>
+              </div>
+            </div>
+            <div class="form-row">
+              <!-- Email Input -->
+              <div class="form-group col-7">
+                <label for="email-input">Email Address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email-input"
+                  placeholder="Email Address"
+                  required
+                />
+                <small id="email-validation" class="form-text"></small>
+              </div>
+              <!-- Phone Input -->
+              <div class="form-group col-5">
+                <label for="phone-input">Phone Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phone-input"
+                  pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                  placeholder="Phone Number"
+                  required
+                />
+                <small id="phone-validation" class="form-text"></small>
+              </div>
+            </div>
+
+            <!-- Password Input -->
+            <div class="form-group">
+              <label for="password-input">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password-input"
+                placeholder="Password"
+                required
+              />
+              <!-- Strong Password Validation -->
+              <small id="pwd-validation" class="form-text text-muted">
+                Your password must be 8-20 characters long, contain letters and
+                numbers, and must not contain spaces.
+              </small>
+            </div>
+            <!-- Confirm Password Input -->
+            <div class="form-group">
+              <label for="confirm-password-input">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirm-password-input"
+                placeholder="Confirm Password"
+                required
+              />
+              <small id="confirm-pwd-validation" class="form-text"></small>
+            </div>
+            <br />
+            <span class="text-black-50"
+              >By clicking "Submit," you agree to the storage and handling of
+              your data by this website in accordance with our
+              <a href="#">Privacy Policy</a></span
+            >
+            <br /><br />
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+          <br />
+          <p>Already a member? Log in <a href="/login">here</a></p>
+        </div>
+      </div>
+    </div>
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Alert styling  -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- jQuery CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Custon JS files -->
+    <script type="text/javascript" src="./assets/js/main.js"></script>
+    <script type="text/javascript" src="./assets/js/signup.js"></script>
+  </body>
+</html>
