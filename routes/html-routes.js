@@ -32,4 +32,8 @@ module.exports = (app) => {
     }
     res.sendFile(path.join(__dirname, "../client/signup.html"));
   });
+
+  app.get("/user-profile", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/user-profile.html"));
+  });
 };
