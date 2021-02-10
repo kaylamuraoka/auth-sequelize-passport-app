@@ -72,15 +72,15 @@ module.exports = function (sequelize, DataTypes) {
         defaultValue: "basic",
         allowNull: false,
       },
-      status: {
-        type: DataTypes.ENUM("active", "inactive"),
-        defaultValue: "active",
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
       },
     },
     {
       modelName: "User",
       timestamps: true,
-      // I want updatedAt to actually be called updateTimestamp
+      // I want updatedAt to actually be called signUpDate
       createdAt: "signUpDate",
     }
   );
