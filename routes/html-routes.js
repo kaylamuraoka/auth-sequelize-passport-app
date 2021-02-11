@@ -40,4 +40,8 @@ module.exports = (app) => {
   app.get("/forgot-password", (req, res) => {
     res.sendFile(path.join(__dirname, "../client/forgot-password.html"));
   });
+
+  app.get("/change-password", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/change-password.html"));
+  });
 };
