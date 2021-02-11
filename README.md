@@ -1,1 +1,1 @@
-# auth-sequelize-passport-app
+# User Registration Application with MySQL Database and Passport Authentication.
