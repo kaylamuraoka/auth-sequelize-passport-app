@@ -82,6 +82,7 @@ const authController = {
   // Function for updating a user's information.
   updateUser(req, res) {
     if (!req.user) {
+      // The user is not logged in
       return;
     }
 
@@ -109,6 +110,11 @@ const authController = {
   // -------------------------------------------------------------------
   // Function for deleting a user
   deleteUser(req, res) {
+    if (!req.user) {
+      // The user is not logged in
+      return;
+    }
+
     db.User.destroy({
       where: {
         id: req.user.id,
@@ -123,14 +129,32 @@ const authController = {
   },
 
   // -------------------------------------------------------------------
-  // Function to allow user to reset their password i they forgot it
-  resetPassword(req, res) {
+  // Function to update password for user
+  updatePassword(req, res) {
     if (!req.user) {
-      // The user is not logged in, send back an empty object
-      res.status(404).json({});
+      // The user is not logged in
+      return;
     }
     // Otherwise, if user is logged in
+    db.User.update(
+      { password: req.body.password },
+      {
+        where: {
+          id: req.user.id,
+        },
+      }
+    )
+      .then((dbUser) => {
+        res.status(200).json(dbUser);
+      })
+      .catch((error) => {
+        res.status(401).json(error);
+      });
   },
+
+  // -------------------------------------------------------------------
+  // Function to allow user to reset their password if they forgot it
+  resetPassword(req, res) {},
 };
 
 module.exports = authController;
