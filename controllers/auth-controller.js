@@ -1,6 +1,9 @@
 // Requiring our models, passport and our written passport.js, as well as bcrypt for when user's want to update their password.
 const db = require("../models");
 const passport = require("../config/passport");
+const crypto = require("crypto");
+require("dotenv").config();
+const nodemailer = require("nodemailer");
 
 const authController = {
   // -------------------------------------------------------------------
@@ -117,6 +120,16 @@ const authController = {
       .catch((error) => {
         res.status(401).json(error);
       });
+  },
+
+  // -------------------------------------------------------------------
+  // Function to allow user to reset their password i they forgot it
+  resetPassword(req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.status(404).json({});
+    }
+    // Otherwise, if user is logged in
   },
 };
 

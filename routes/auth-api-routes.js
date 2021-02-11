@@ -21,4 +21,6 @@ module.exports = (app) => {
 
   // DELETE Route for deleting a user account.
   app.delete("/api/user_data", authController.deleteUser);
+
+  app.post("/api/forgot_password", authController.resetPassword);
 };
