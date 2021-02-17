@@ -26,6 +26,16 @@ module.exports = function (sequelize, DataTypes) {
           },
         },
       },
+      // VIRTUAL field does not cause a column in the table to exist.
+      fullName: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          return `${this.firstName} ${this.lastName}`;
+        },
+        set(value) {
+          throw new Error("Do not try to set the `fullName` value!");
+        },
+      },
       // The email cannot be null, and must be a proper email before creation
       email: {
         type: DataTypes.STRING,
