@@ -4,6 +4,7 @@ const passport = require("../config/passport");
 const crypto = require("crypto");
 require("dotenv").config();
 const nodemailer = require("nodemailer");
+const bcrypt = require("bcryptjs");
 
 const authController = {
   // -------------------------------------------------------------------
@@ -135,21 +136,37 @@ const authController = {
       // The user is not logged in
       return;
     }
-    // Otherwise, if user is logged in
-    db.User.update(
-      { password: req.body.password },
-      {
-        where: {
-          id: req.user.id,
-        },
-      }
-    )
-      .then((dbUser) => {
-        res.status(200).json(dbUser);
-      })
-      .catch((error) => {
-        res.status(401).json(error);
-      });
+
+    if (bcrypt.compareSync(req.body.currentPassword, req.user.password)) {
+      console.log(
+        "User's input for current password matches their current password."
+      );
+      newHash = bcrypt.hashSync(
+        req.body.newPassword,
+        bcrypt.genSaltSync(10),
+        null
+      );
+
+      db.User.update(
+        { password: newHash },
+        {
+          where: {
+            id: req.user.id,
+          },
+        }
+      )
+        .then((dbUser) => {
+          res.status(200).json(dbUser);
+        })
+        .catch((error) => {
+          res.status(401).json(error);
+        });
+    } else {
+      const error = {
+        msg: "Oops, that wasn't the right password. Try again.",
+      };
+      res.status(401).json(error);
+    }
   },
 
   // -------------------------------------------------------------------
