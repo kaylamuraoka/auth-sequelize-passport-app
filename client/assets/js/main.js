@@ -25,6 +25,13 @@ function showError(alertEl, alertMsgEl, msg) {
   alertMsgEl.text(msg);
 }
 
+function showPassword(inputEl) {
+  if (inputEl.type === "password") {
+    inputEl.type = "text";
+  } else {
+    inputEl.type = "password";
+  }
+}
 // -------------------------------------------------------------------------------------
 // FUNCTIONS FOR GETTING THE GREETING FOR THE HOMEPAGE/DASHBOARD
 function getGreeting() {
