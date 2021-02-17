@@ -72,6 +72,12 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
       },
+      resetPasswordToken: {
+        type: DataTypes.STRING,
+      },
+      resetPasswordExpires: {
+        type: DataTypes.DATE,
+      },
     },
     {
       modelName: "User",
