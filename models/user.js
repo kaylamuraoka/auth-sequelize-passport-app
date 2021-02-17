@@ -60,10 +60,6 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false,
         validate: {
           notEmpty: false,
-          len: {
-            args: [8, 20],
-            msg: "Please provide password within 8 to 20 characters.",
-          },
         },
       },
       role: {
@@ -88,17 +84,13 @@ module.exports = function (sequelize, DataTypes) {
   User.prototype.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
   };
+
+  User.prototype.generateHash = function (password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+  };
   // Hooks are automatic methods that run during various phases of the User Model lifecycle
   // In this case, before a User is created, we will automatically hash their password
   User.addHook("beforeCreate", (user) => {
-    user.password = bcrypt.hashSync(
-      user.password,
-      bcrypt.genSaltSync(10),
-      null
-    );
-  });
-
-  User.addHook("beforeUpdate", (user) => {
     user.password = bcrypt.hashSync(
       user.password,
       bcrypt.genSaltSync(10),
