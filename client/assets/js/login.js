@@ -62,7 +62,13 @@ $(document).ready(function () {
       case "No account found with that email address.":
         invalidInput(emailInput, emailFeedback, msg);
         invalidInput(passwordInput, passwordFeedback, msg);
-        authErrorAlert(msg, "Please create an account.", "Sign Up", "/signup");
+        authErrorAlert(
+          msg,
+          "Please create an account.",
+          "Sign Up",
+          "/signup",
+          "Forgot your password?"
+        );
         break;
       default:
         msg = "Invalid login credentials. Please try again.";
