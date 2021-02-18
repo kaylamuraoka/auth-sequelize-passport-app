@@ -46,6 +46,7 @@ const authController = {
       lastName: req.body.lastName,
       email: req.body.email,
       phone: req.body.phone,
+      role: req.body.role,
       password: req.body.password,
     })
       .then(() => {
