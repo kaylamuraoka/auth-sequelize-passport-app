@@ -5,7 +5,7 @@ $(document).ready(function () {
     console.log(data);
 
     const greeting = getGreeting();
-    $("#greeting").text(greeting + ", " + data.firstName + " " + data.lastName);
+    $("#greeting").text(greeting + ", " + data.fullName);
 
     $(".user-email").text(data.email);
     $(".user-phone").text(data.phone);
