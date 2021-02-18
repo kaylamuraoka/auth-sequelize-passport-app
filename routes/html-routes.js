@@ -44,4 +44,8 @@ module.exports = (app) => {
   app.get("/change-password", isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, "../client/change-password.html"));
   });
+
+  app.get("/reset/:resetPasswordToken", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/reset-password.html"));
+  });
 };
