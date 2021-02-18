@@ -66,6 +66,7 @@ $(document).ready(function () {
         succcessRedirectAlert("Creating your account", "/user-dashboard");
       })
       .catch((error) => {
+        console.log(error);
         const msg = error.responseJSON.errors[0].message;
         handleSignupErr(msg);
       });
@@ -205,7 +206,8 @@ $(document).ready(function () {
       "Oops... Looks like you already have an account with this email address.",
       "Please try to login.",
       "Login",
-      "/login"
+      "/login",
+      "Forgot your password?"
     );
   }
 
@@ -221,7 +223,8 @@ $(document).ready(function () {
       "Oops... Looks like you already have an account with this phone number.",
       "Please try to login.",
       "Login",
-      "/login"
+      "/login",
+      "Forgot your password?"
     );
   }
 });
