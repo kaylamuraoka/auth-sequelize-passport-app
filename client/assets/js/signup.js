@@ -5,6 +5,7 @@ $(document).ready(function () {
   const lastNameInput = $("input#lastName-input");
   const emailInput = $("input#email-input");
   const phoneInput = $("input#phone-input");
+  const roleSelect = $("select#role-input");
   const passwordInput = $("input#password-input");
   const confirmPasswordInput = $("input#confirm-password-input");
 
@@ -13,6 +14,7 @@ $(document).ready(function () {
   const lastNameFeedback = $("small#last-name-validation");
   const emailFeedback = $("small#email-validation");
   const phoneFeedback = $("small#phone-validation");
+  const roleFeedback = $("small#role-validation");
   const passwordFeedback = $("small#pwd-validation");
   const confirmPasswordFeedback = $("small#confirm-pwd-validation");
 
@@ -29,6 +31,7 @@ $(document).ready(function () {
       lastName: lastNameInput.val().trim(),
       email: emailInput.val().trim(),
       phone: phoneInput.val().trim(),
+      role: $("#role-input option:selected").val(),
       password: passwordInput.val(),
     };
     const confirmPwd = confirmPasswordInput.val();
@@ -39,6 +42,7 @@ $(document).ready(function () {
       checkName(userData.lastName) &&
       checkEmail(userData.email) &&
       checkPhone(userData.phone) &&
+      checkRole(userData.role) &&
       checkPwdMatch(userData.password, confirmPwd) &&
       checkPwd(userData.password)
     ) {
@@ -48,7 +52,7 @@ $(document).ready(function () {
       showError(
         errorBox,
         errorMsg,
-        "You must fix all errors before you can proceed"
+        "Please make sure you fill in all required fields and fix all errors before proceeding"
       );
       return;
     }
@@ -129,6 +133,18 @@ $(document).ready(function () {
         phoneFeedback,
         "You must provide a valid phone number. For example: 8081234567"
       );
+    }
+  });
+
+  // Validate that a role is selected
+  roleSelect.change(function () {
+    const selectedRole = $("#role-input option:selected").val();
+
+    if (checkRole(selectedRole)) {
+      // is true
+      validInput($(this), roleFeedback, "Looks Good!");
+    } else {
+      invalidInput($(this), roleFeedback, "You must select a role.");
     }
   });
 
