@@ -74,7 +74,7 @@ module.exports = function (sequelize, DataTypes) {
       },
       role: {
         type: DataTypes.ENUM,
-        values: ["Administrator", "Client", "FAINC Employee"],
+        values: ["Administrator", "Client", "Employee"],
         allowNull: false,
       },
       isActive: {
