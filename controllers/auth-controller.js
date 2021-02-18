@@ -5,6 +5,7 @@ const crypto = require("crypto");
 require("dotenv").config();
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
+const { Op } = require("sequelize");
 
 const authController = {
   // -------------------------------------------------------------------
@@ -130,7 +131,7 @@ const authController = {
   },
 
   // -------------------------------------------------------------------
-  // Function to update password for user
+  // Function to update password for user when logged in
   updatePassword(req, res) {
     if (!req.user) {
       // The user is not logged in
@@ -171,7 +172,107 @@ const authController = {
 
   // -------------------------------------------------------------------
   // Function to allow user to reset their password if they forgot it
-  resetPassword(req, res) {},
+  sendResetLink(req, res) {
+    db.User.findOne({
+      where: {
+        email: req.body.email,
+      },
+    }).then((user) => {
+      if (!user) {
+        console.log("No account found with that email address.");
+        res.status(403).send("No account found with that email address.");
+      } else {
+        // Generate a Token
+        const token = crypto.randomBytes(20).toString("hex");
+
+        user.update({
+          resetPasswordToken: token, // generated unique hash token
+          resetPasswordExpires: Date.now() + 3600000, // valid for one hour after sending the link
+        });
+
+        // Generate SMTP service account from ethereal.email
+        nodemailer.createTestAccount((err, account) => {
+          if (err) {
+            console.log("Failed to create a testing account. " + err.message);
+            return process.exit(1);
+          }
+
+          console.log("Credentials obtained, sending message...");
+
+          // Create a SMTP transporter object
+          let transporter = nodemailer.createTransport({
+            host: account.smtp.host,
+            port: account.smtp.port,
+            secure: account.smtp.secure,
+            auth: {
+              user: account.user,
+              pass: account.pass,
+            },
+          });
+
+          // Message object, creating the email template
+          let message = {
+            from: "sender@example.com",
+            to: `${user.email}`,
+            subject: "Password reset requested",
+            text:
+              `Hi ${user.fullName}\n\n` +
+              "You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n" +
+              "Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it \n\n" +
+              `http://localhost:8080/reset/${token}\n\n` +
+              "If you did not request this, please ignore this email and your password will remain unchanged.\n",
+          };
+
+          console.log("sending mail");
+
+          // Send Mail
+          transporter.sendMail(message, (err, info) => {
+            if (err) {
+              console.log("Error occurred. " + err.message);
+              return process.exit(1);
+            }
+
+            console.log("Message sent: %s", info.messageId);
+            // Preview only available when sending through an Ethereal account
+            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+            res.status(200).json("recovery email sent");
+          });
+        });
+      }
+    });
+  },
+
+  // -------------------------------------------------------------------
+  // Reset Password using the link emailed to the user
+  resetPassword(req, res) {
+    db.User.findOne({
+      where: {
+        resetPasswordToken: req.params.resetPasswordToken,
+        resetPasswordExpires: {
+          [Op.gt]: new Date(),
+        },
+      },
+    }).then((dbUser) => {
+      if (!dbUser) {
+        console.log("Password reset link is invalid or has expired");
+        res
+          .status(403)
+          .json({ message: "Password reset link is invalid or has expired" });
+      } else {
+        const hashedPwd = dbUser.generateHash(req.body.password);
+        dbUser
+          .update({
+            password: hashedPwd,
+            resetPasswordToken: null,
+            resetPasswordExpires: null,
+          })
+          .then(() => {
+            console.log("password updated");
+            res.status(200).send({ message: "password updated" });
+          });
+      }
+    });
+  },
 };
 
 module.exports = authController;
