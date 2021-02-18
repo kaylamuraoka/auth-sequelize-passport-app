@@ -25,5 +25,10 @@ module.exports = (app) => {
   // DELETE Route for deleting a user account.
   app.delete("/api/user_data", authController.deleteUser);
 
-  app.post("/api/forgot_password", authController.resetPassword);
+  // POST Route for sending a link to the user's email to reset their password
+  app.post("/api/forgot_password", authController.sendResetLink);
+
+  // POST Route for checking the resetPasswordToken passed from the link’s query parameters and date timestamp to ensure that everything’s good.
+  // In this case we have a single query parameter, named resetPasswordToken
+  app.post("/api/reset/:resetPasswordToken", authController.resetPassword);
 };
