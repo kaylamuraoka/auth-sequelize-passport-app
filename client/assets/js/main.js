@@ -1,7 +1,7 @@
 // JavaScript file with the functions that will be included on every page
 // DECLARATION OF GLOBAL VARIABLES HERE
 let timerInterval;
-
+const today = new Date();
 // -------------------------------------------------------------------------------------
 // FUNCTIONS FOR PROVIDING FEEDBACK TO USER WHEN VALIDATING USER INPUT
 function invalidInput(inputEl, feedbackEl, msg) {
@@ -32,10 +32,19 @@ function showPassword(inputEl) {
     inputEl.type = "password";
   }
 }
+
+// Function that formats a user's input with title case while typing
+function titleCase(str) {
+  str = str.toLowerCase().split(" ");
+  for (let i = 0; i < str.length; i++) {
+    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+  }
+  return str.join(" ");
+}
+
 // -------------------------------------------------------------------------------------
 // FUNCTIONS FOR GETTING THE GREETING FOR THE HOMEPAGE/DASHBOARD
 function getGreeting() {
-  const today = new Date();
   const curHr = today.getHours();
   if (curHr < 12) {
     return "Good Morning";
@@ -44,14 +53,6 @@ function getGreeting() {
   } else {
     return "Good Evening";
   }
-}
-
-// Helper function to hide items
-function hide(el) {
-  el.style.display = "none";
-}
-function show(el) {
-  el.style.display = "inline";
 }
 
 // -------------------------------------------------------------------------------------
@@ -110,7 +111,13 @@ function checkPwdMatch(pwd1, pwd2) {
 
 // -------------------------------------------------------------------------------------
 // FUNCTIONS FOR ALERT POPUPS
-function authErrorAlert(title, subtext, confirmButtonText, destination) {
+function authErrorAlert(
+  title,
+  subtext,
+  confirmButtonText,
+  destination,
+  footerText
+) {
   const swalWithBootstrapButtons = Swal.mixin({
     customClass: {
       confirmButton: "btn btn-info m-2",
@@ -126,7 +133,7 @@ function authErrorAlert(title, subtext, confirmButtonText, destination) {
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: confirmButtonText,
-      footer: "<a href='/forgot-password'>Forgot your password?</a>",
+      footer: `<a href='/forgot-password'>${footerText}</a>`,
     })
     .then((result) => {
       if (result.isConfirmed) {
@@ -135,7 +142,7 @@ function authErrorAlert(title, subtext, confirmButtonText, destination) {
     });
 }
 
-// Function that alerts the user that their credentials is correect and they are being redirected to their dashboard
+// Function that alerts the user that their credentials is correct and they are being redirected to their dashboard
 function succcessRedirectAlert(title, destination) {
   Swal.fire({
     title: title,
@@ -216,6 +223,35 @@ function confirmDeleteAlert(
           });
       }
     });
+}
+
+function succcessEmailAlert(title, renderContentFunction) {
+  Swal.fire({
+    title: title,
+    icon: "success",
+    html: "<b></b> milliseconds left.",
+    timer: 6000,
+    timerProgressBar: true,
+    didOpen: () => {
+      Swal.showLoading();
+      timerInterval = setInterval(() => {
+        const content = Swal.getContent();
+        if (content) {
+          const b = content.querySelector("b");
+          if (b) {
+            b.textContent = Swal.getTimerLeft();
+          }
+        }
+      }, 100);
+    },
+    willClose: () => {
+      clearInterval(timerInterval);
+    },
+  }).then((result) => {
+    if (result.dismiss === Swal.DismissReason.timer) {
+      renderContentFunction();
+    }
+  });
 }
 
 // -------------------------------------------------------------------------------------
