@@ -86,6 +86,13 @@ function checkName(name) {
     return true;
   }
 }
+function checkRole(role) {
+  if (role === "none-selected") {
+    return false;
+  } else {
+    return true;
+  }
+}
 
 function checkPwd(pwd) {
   if (
