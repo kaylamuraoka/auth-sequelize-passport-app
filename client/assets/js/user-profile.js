@@ -27,6 +27,7 @@ $(document).ready(function () {
     firstNameInput.val(data.firstName);
     lastNameInput.val(data.lastName);
     $("#lastUpdate").text(data.updatedAt);
+    $("#assignedRole").text(data.role);
   });
 
   // Happens when updateUserForm is submitted
