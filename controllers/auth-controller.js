@@ -206,7 +206,7 @@ const authController = {
 
         // Define our mail options - what we want the user to see
         const mailOptions = {
-          from: "User <app202055888@heroku.com",
+          from: "Excited User <app202055888@heroku.com>",
           to: `${user.email}`,
           subject: "Password reset requested",
           text:
