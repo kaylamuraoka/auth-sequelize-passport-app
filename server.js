@@ -18,7 +18,7 @@ app.use(express.static("./client/"));
 // We need to use sessions to keep track of our user's login status
 app.use(
   session({
-    secret: "keyboard cat",
+    secret: process.env.SESSION_SECRET_KEY,
     resave: true,
     saveUninitialized: true,
   })
