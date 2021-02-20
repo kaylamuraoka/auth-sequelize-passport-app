@@ -9,7 +9,7 @@ input#lastName-input {
 }
 
 /* Profile Image Upload Styling */
-#imageUpload {
+#profile-img-input {
   display: none;
 }
 

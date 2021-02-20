@@ -5,6 +5,7 @@ $(document).ready(function () {
   const lastNameInput = $("input#lastName-input");
   const emailInput = $("input#email-input");
   const phoneInput = $("input#phone-input");
+  const profileImgInput = $("input#profile-img-input");
   const roleSelect = $("select#role-input");
   const passwordInput = $("input#password-input");
   const confirmPasswordInput = $("input#confirm-password-input");
@@ -191,14 +192,14 @@ $(document).ready(function () {
   const uploadImgPlaceholder = $("#profileImage");
   // Functions for uploading profile image
   $("#profileImage").click(function (e) {
-    $("#imageUpload").click();
+    profileImgInput.click();
   });
 
   $(".icon-container").click(function (e) {
-    $("#imageUpload").click();
+    profileImgInput.click();
   });
 
-  $("#imageUpload").change(function () {
+  profileImgInput.change(function () {
     uploadImagePreview(this, uploadImgPlaceholder, profileImgFeedback);
   });
 
