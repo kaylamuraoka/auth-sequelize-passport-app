@@ -7,9 +7,6 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: "mysql",
-    dialectOptions: {
-      useUTC: false, // for reading from database
-    },
     timezone: "-10:00",
   },
   test: {
@@ -22,9 +19,6 @@ module.exports = {
   production: {
     use_env_variable: "JAWSDB_URL",
     dialect: "mysql",
-    dialectOptions: {
-      useUTC: false, // for reading from database
-    },
     timezone: "-10:00",
   },
 };
