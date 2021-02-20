@@ -17,6 +17,7 @@ $(document).ready(function () {
   const roleFeedback = $("small#role-validation");
   const passwordFeedback = $("small#pwd-validation");
   const confirmPasswordFeedback = $("small#confirm-pwd-validation");
+  const profileImgFeedback = $("small#profile-img-validation");
 
   // Getting references to our error alert section
   const errorBox = $("#alert");
@@ -186,6 +187,19 @@ $(document).ready(function () {
         "Passwords don't match."
       );
     }
+  });
+  const uploadImgPlaceholder = $("#profileImage");
+  // Functions for uploading profile image
+  $("#profileImage").click(function (e) {
+    $("#imageUpload").click();
+  });
+
+  $(".icon-container").click(function (e) {
+    $("#imageUpload").click();
+  });
+
+  $("#imageUpload").change(function () {
+    uploadImagePreview(this, uploadImgPlaceholder, profileImgFeedback);
   });
 
   function handleSignupErr(msg) {
