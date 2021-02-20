@@ -116,6 +116,33 @@ function checkPwdMatch(pwd1, pwd2) {
   }
 }
 
+// Function for changing the profile image placeholder upon image being uploaded
+function uploadPreview(inputFile, uploadPlaceholderEl, feedbackTextEl) {
+  if (inputFile.files && inputFile.files[0]) {
+    const fileName = inputFile.files[0].name;
+    const fileType = inputFile.files[0].type;
+    console.log("File Name: " + fileName + "\nFile Type: " + fileType);
+    if (
+      inputFile.files[0].type === "image/png" ||
+      inputFile.files[0].type === "image/jpeg"
+    ) {
+      uploadPlaceholderEl.attr(
+        "src",
+        window.URL.createObjectURL(inputFile.files[0])
+      );
+      feedbackTextEl
+        .html("Looks Good!")
+        .removeClass("text-muted text-danger")
+        .addClass("text-success");
+    } else {
+      feedbackTextEl
+        .html("Please upload a profile picture")
+        .removeClass("text-muted text-success")
+        .addClass("text-danger");
+    }
+  }
+}
+
 // -------------------------------------------------------------------------------------
 // FUNCTIONS FOR ALERT POPUPS
 function authErrorAlert(
