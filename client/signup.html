@@ -51,6 +51,32 @@
               ></span>
               <span class="sr-only">Error:</span> <span class="ml-2 msg"></span>
             </div>
+            <!-- Upload Image Section -->
+            <div class="d-flex justify-content-center">
+              <div id="profile-container">
+                <image
+                  id="profileImage"
+                  src="assets/images/default_avatar.png"
+                  alt="Avatar"
+                />
+                <div class="icon-container">
+                  <i class="fas fa-camera camera-icon"></i>
+                </div>
+              </div>
+
+              <input
+                id="imageUpload"
+                type="file"
+                name="profile_image"
+                placeholder="Profile Image"
+                accept="image/png, image/jpeg"
+              />
+            </div>
+            <small
+              class="form-text text-center text-muted"
+              id="profile-img-validation"
+              >Choose Image</small
+            >
             <!-- Name input -->
             <div class="form-row">
               <div class="form-group col-6">
@@ -148,8 +174,8 @@
             </div>
             <br />
             <span class="text-black-50"
-              >By clicking "Submit," you agree to the storage and handling of
-              your data by this website in accordance with our
+              >By clicking <b>"Submit"</b>, you agree to the storage and
+              handling of your data by this website in accordance with our
               <a href="#">Privacy Policy</a></span
             >
             <br /><br />
@@ -175,6 +201,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- jQuery CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Font Awesome kit's code -->
+    <script
+      src="https://kit.fontawesome.com/b7705bf7e8.js"
+      crossorigin="anonymous"
+    ></script>
     <!-- Custom JS files -->
     <script type="text/javascript" src="./assets/js/main.js"></script>
     <script type="text/javascript" src="./assets/js/signup.js"></script>
