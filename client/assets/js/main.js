@@ -117,7 +117,7 @@ function checkPwdMatch(pwd1, pwd2) {
 }
 
 // Function for changing the profile image placeholder upon image being uploaded
-function uploadPreview(inputFile, uploadPlaceholderEl, feedbackTextEl) {
+function uploadImagePreview(inputFile, uploadPlaceholderEl, feedbackTextEl) {
   if (inputFile.files && inputFile.files[0]) {
     const fileName = inputFile.files[0].name;
     const fileType = inputFile.files[0].type;
