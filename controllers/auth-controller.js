@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 const nodemailMailgun = require("nodemailer-mailgun-transport");
 const bcrypt = require("bcryptjs");
 const { Op } = require("sequelize");
-const cloudinary = require("../config/coudinary");
+const cloudinary = require("../config/coudinaryConfig");
 
 const authController = {
   // -------------------------------------------------------------------

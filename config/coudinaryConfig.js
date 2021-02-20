@@ -1,4 +1,5 @@
 // Here we configure our cloudinary module using our configuration parameters
+require("dotenv").config();
 const cloudinary = require("cloudinary");
 
 cloudinary.config({
