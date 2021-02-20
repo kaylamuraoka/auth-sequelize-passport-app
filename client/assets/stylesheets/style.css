@@ -7,3 +7,61 @@ input#firstName-input,
 input#lastName-input {
   text-transform: capitalize;
 }
+
+/* Profile Image Upload Styling */
+#imageUpload {
+  display: none;
+}
+
+#profile-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  transition: filter 0.8s ease;
+}
+
+#profile-container img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  opacity: 1;
+  transition: filter 0.5s ease;
+}
+
+#profile-container .icon-container {
+  transition: 0.5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#profile-container:hover {
+  filter: drop-shadow(1px 1px 22px #7584bb);
+  cursor: pointer;
+}
+
+#profile-container:hover img {
+  opacity: 0.7;
+}
+
+#profile-container:hover .icon-container {
+  opacity: 1;
+}
+
+.icon-container .camera-icon {
+  background-color: darkgray;
+  color: white;
+  border-radius: 50%;
+  font-size: 16px;
+  padding: 16px 16px;
+}
