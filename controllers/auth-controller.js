@@ -7,6 +7,7 @@ const nodemailer = require("nodemailer");
 const nodemailMailgun = require("nodemailer-mailgun-transport");
 const bcrypt = require("bcryptjs");
 const { Op } = require("sequelize");
+const cloudinary = require("../config/coudinary");
 
 const authController = {
   // -------------------------------------------------------------------
@@ -42,17 +43,24 @@ const authController = {
   // Signup/create a new user
   // Passwords will be auto hashed and stored securely thanks to how we configured our Sequelize User Model.
   signup(req, res) {
+    // Upload image to cloudinary
+    const result = cloudinary.uploader.upload(req.file.path);
+
+    // Create new user
     db.User.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       email: req.body.email,
       phone: req.body.phone,
       role: req.body.role,
+      avatar: result.secure_url,
+      cloudinaryId: result.public_id,
       password: req.body.password,
     })
-      .then(() => {
+      .then((dbUser) => {
         // user is created successfully, proceed to log the user in
-        res.redirect(307, "/api/login");
+        res.status(200).json(dbUser);
+        // res.redirect(307, "/api/login");
       })
       .catch((error) => {
         // otherwise send back an error
