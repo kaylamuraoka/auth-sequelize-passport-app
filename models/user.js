@@ -65,6 +65,13 @@ module.exports = function (sequelize, DataTypes) {
           },
         },
       },
+      avatar: {
+        type: DataTypes.STRING,
+      },
+      // cloudinaryId is needed for sending put/delete requests for avatar (image)
+      cloudinaryId: {
+        type: DataTypes.STRING,
+      },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
