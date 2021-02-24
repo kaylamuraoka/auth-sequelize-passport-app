@@ -35,9 +35,9 @@ $(document).ready(function () {
       phone: phoneInput.val().trim(),
       role: $("#role-input option:selected").val(),
       password: passwordInput.val(),
+      avatar: $("#profileImage").attr("src"),
     };
     const confirmPwd = confirmPasswordInput.val();
-
     // Validate that input fields meet all specified requirements
     if (
       checkName(userData.firstName) &&
@@ -73,8 +73,20 @@ $(document).ready(function () {
       })
       .catch((error) => {
         console.log(error);
-        const msg = error.responseJSON.errors[0].message;
-        handleSignupErr(msg);
+        if (error.statusText === "Payload Too Large") {
+          $("small#profile-img-validation")
+            .html("File must be less than 10MB")
+            .removeClass("text-muted text-success")
+            .addClass("text-danger");
+          showError(
+            errorBox,
+            errorMsg,
+            "Please upload a image that is less than 10MB"
+          );
+        } else {
+          const msg = error.responseJSON.errors[0].message;
+          handleSignupErr(msg);
+        }
       });
   };
 
@@ -189,7 +201,7 @@ $(document).ready(function () {
       );
     }
   });
-  const uploadImgPlaceholder = $("#profileImage");
+
   // Functions for uploading profile image
   $("#profileImage").click(function (e) {
     profileImgInput.click();
@@ -199,8 +211,8 @@ $(document).ready(function () {
     profileImgInput.click();
   });
 
-  profileImgInput.change(function () {
-    uploadImagePreview(this, uploadImgPlaceholder, profileImgFeedback);
+  $("input#profile-img-input").change(function () {
+    readURL(this, $("#profileImage"), $("small#profile-img-validation"));
   });
 
   function handleSignupErr(msg) {
