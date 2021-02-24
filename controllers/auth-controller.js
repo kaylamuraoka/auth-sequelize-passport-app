@@ -72,9 +72,9 @@ const authController = {
           cloudinaryId: image.public_id,
           password: req.body.password,
         })
-          .then((dbUser) => {
+          .then(() => {
             // user is created successfully, proceed to log the user in
-            res.status(200).json({ message: "success", dbUser });
+            res.redirect(307, "/api/login");
           })
           .catch((error) => {
             // otherwise send back an error
