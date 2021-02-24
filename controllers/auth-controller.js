@@ -150,13 +150,26 @@ const authController = {
       return;
     }
 
+    // Delete user from db
     db.User.destroy({
       where: {
         id: req.user.id,
       },
     })
       .then((dbUser) => {
-        res.status(200).json(dbUser);
+        // Delete image from cloudinary
+        cloudinary.uploader
+          .destroy(req.user.cloudinaryId)
+          .then((result) => {
+            res.status(200).json(dbUser);
+          })
+          .catch((error) => {
+            console.log("error: " + error);
+            res.status(500).json({
+              message: "failure",
+              error,
+            });
+          });
       })
       .catch((error) => {
         res.status(401).json(error);
