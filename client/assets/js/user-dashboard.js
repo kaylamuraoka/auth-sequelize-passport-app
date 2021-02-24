@@ -9,5 +9,7 @@ $(document).ready(function () {
 
     $(".user-email").text(data.email);
     $(".user-phone").text(data.phone);
+    $(".user-avatar").attr("src", data.avatar);
+    $(".user-avatar").attr("alt", `${data.fullName}'s Profile Image`);
   });
 });
