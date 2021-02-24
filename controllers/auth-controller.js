@@ -8,6 +8,7 @@ const nodemailMailgun = require("nodemailer-mailgun-transport");
 const bcrypt = require("bcryptjs");
 const { Op } = require("sequelize");
 const cloudinary = require("../config/coudinaryConfig");
+const { response } = require("express");
 
 const authController = {
   // -------------------------------------------------------------------
@@ -43,28 +44,50 @@ const authController = {
   // Signup/create a new user
   // Passwords will be auto hashed and stored securely thanks to how we configured our Sequelize User Model.
   signup(req, res) {
-    // Upload image to cloudinary
-    const result = cloudinary.uploader.upload(req.file.path);
+    // upload image
+    const uniqueFilename = new Date().toISOString();
 
-    // Create new user
-    db.User.create({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      phone: req.body.phone,
-      role: req.body.role,
-      avatar: result.secure_url,
-      cloudinaryId: result.public_id,
-      password: req.body.password,
-    })
-      .then((dbUser) => {
-        // user is created successfully, proceed to log the user in
-        res.status(200).json(dbUser);
-        // res.redirect(307, "/api/login");
+    cloudinary.uploader
+      .upload(req.body.avatar, {
+        public_id: `avatars/${uniqueFilename}`,
+        tags: `avatar`,
+        width: 400,
+        quality: "auto",
+        fetch_format: "auto",
+        crop: "scale",
       })
+      .then((image) => {
+        console.log("Image succesfully uploaded to Cloudinary");
+        console.log("Secure URL: " + image.secure_url); // used to display the image on the front-end
+        console.log("Public ID: " + image.public_id); // allows us to access and delete the image from Cloudinary.
+
+        // Create a new user
+        db.User.create({
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          email: req.body.email,
+          phone: req.body.phone,
+          role: req.body.role,
+          avatar: image.secure_url,
+          cloudinaryId: image.public_id,
+          password: req.body.password,
+        })
+          .then((dbUser) => {
+            // user is created successfully, proceed to log the user in
+            res.status(200).json({ message: "success", dbUser });
+          })
+          .catch((error) => {
+            // otherwise send back an error
+            res.status(401).json(error);
+          });
+      })
+
       .catch((error) => {
-        // otherwise send back an error
-        res.status(401).json(error);
+        console.log("error: " + error);
+        res.status(500).json({
+          message: "failure",
+          error,
+        });
       });
   },
 
