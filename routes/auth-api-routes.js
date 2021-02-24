@@ -1,6 +1,5 @@
 // Require controller and multer modules
 const authController = require("../controllers/auth-controller");
-const upload = require("../config/multer");
 
 module.exports = (app) => {
   /// AUTH ROUTES ///
@@ -9,7 +8,7 @@ module.exports = (app) => {
   app.post("/api/login", authController.login);
 
   // POST Route for signing up a user.
-  app.post("/api/signup", upload.single("image"), authController.signup);
+  app.post("/api/signup", authController.signup);
 
   // GET Route for logging user out.
   app.get("/logout", authController.logout);
