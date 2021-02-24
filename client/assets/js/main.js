@@ -116,30 +116,42 @@ function checkPwdMatch(pwd1, pwd2) {
   }
 }
 
-// Function for changing the profile image placeholder upon image being uploaded
-function uploadImagePreview(inputFile, uploadPlaceholderEl, feedbackTextEl) {
-  if (inputFile.files && inputFile.files[0]) {
-    const fileName = inputFile.files[0].name;
-    const fileType = inputFile.files[0].type;
-    console.log("File Name: " + fileName + "\nFile Type: " + fileType);
-    if (
-      inputFile.files[0].type === "image/png" ||
-      inputFile.files[0].type === "image/jpeg"
-    ) {
-      uploadPlaceholderEl.attr(
-        "src",
-        window.URL.createObjectURL(inputFile.files[0])
-      );
+function checkImgSize(img) {
+  if (img.size <= 90000) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// Function to preview a file (image) before it is uploaded
+function readURL(input, previewImg, feedbackTextEl) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    console.log(input.files[0]);
+
+    reader.onload = function (e) {
+      console.log(e.target);
+      previewImg.attr("src", e.target.result);
+    };
+
+    reader.readAsDataURL(input.files[0]); // convert to base64 string
+    if (checkImgSize(input.files[0])) {
       feedbackTextEl
         .html("Looks Good!")
         .removeClass("text-muted text-danger")
         .addClass("text-success");
     } else {
       feedbackTextEl
-        .html("Please upload a profile picture")
+        .html("File must be less than 10MB")
         .removeClass("text-muted text-success")
         .addClass("text-danger");
     }
+  } else {
+    feedbackTextEl
+      .html("Please upload a profile picture")
+      .removeClass("text-muted text-success")
+      .addClass("text-danger");
   }
 }
 
