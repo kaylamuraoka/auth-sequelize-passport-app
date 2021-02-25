@@ -22,6 +22,9 @@ module.exports = (app) => {
   // PUT Route for updating a user's password.
   app.put("/api/change_password", authController.updatePassword);
 
+  // PUT Route for updating a user's profile picture/avatar.
+  app.put("/api/change_avatar", authController.updateAvatar);
+
   // DELETE Route for deleting a user account.
   app.delete("/api/user_data", authController.deleteUser);
 
