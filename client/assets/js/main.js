@@ -124,6 +124,15 @@ function checkImgSize(img) {
   }
 }
 
+function checkFile(file) {
+  if (file[0].files.length == 0) {
+    // no file selected
+    return false;
+  } else {
+    return true;
+  }
+}
+
 // Function to preview a file (image) before it is uploaded
 function readURL(input, previewImg, feedbackTextEl) {
   if (input.files && input.files[0]) {
