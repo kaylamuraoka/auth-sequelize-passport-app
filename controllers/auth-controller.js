@@ -8,7 +8,6 @@ const nodemailMailgun = require("nodemailer-mailgun-transport");
 const bcrypt = require("bcryptjs");
 const { Op } = require("sequelize");
 const cloudinary = require("../config/coudinaryConfig");
-const { response } = require("express");
 
 const authController = {
   // -------------------------------------------------------------------
@@ -157,7 +156,7 @@ const authController = {
       },
     })
       .then((dbUser) => {
-        // Delete image from cloudinary
+        // Delete image from Cloudinary
         cloudinary.uploader
           .destroy(req.user.cloudinaryId)
           .then((result) => {
@@ -214,6 +213,52 @@ const authController = {
       };
       res.status(401).json(error);
     }
+  },
+
+  // -------------------------------------------------------------------
+  // Function to update profile image for user when logged in
+  updateAvatar(req, res) {
+    if (!req.user) {
+      // The user is not logged in
+      return;
+    }
+
+    // Delete existing image from Cloudinary
+    cloudinary.uploader
+      .destroy(req.user.cloudinaryId)
+      .then(() => {
+        // upload new image to Cloudinary database
+        const uniqueFilename = new Date().toISOString();
+        cloudinary.uploader
+          .upload(req.body.avatar, {
+            public_id: `avatars/${uniqueFilename}`,
+            tags: `avatar`,
+            width: 400,
+            quality: "auto",
+            fetch_format: "auto",
+            crop: "scale",
+          })
+          .then((image) => {
+            console.log("Image succesfully uploaded to Cloudinary");
+            console.log("Secure URL: " + image.secure_url); // used to display the image on the front-end
+            console.log("Public ID: " + image.public_id); // allows us to access and delete the image from Cloudinary.
+            res.status(200).json(image);
+          })
+          .catch((error) => {
+            console.log("error: " + error);
+            res.status(500).json({
+              message: "failure",
+              error,
+            });
+          });
+      })
+      .catch((error) => {
+        console.log("error: " + error);
+        res.status(500).json({
+          message: "failure",
+          error,
+        });
+      });
   },
 
   // -------------------------------------------------------------------
