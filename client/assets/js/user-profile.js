@@ -141,13 +141,32 @@ $(document).ready(function () {
     })
       .then(() => {
         $("#change-profile-pic-modal").modal("toggle");
-        successAlert(
-          "Your profile picture has been updated",
-          "/user-dashboard"
-        );
+        // successAlert(
+        //   "Your profile picture has been updated",
+        //   "/user-dashboard"
+        // );
+        location.reload();
       })
       .catch((error) => {
         console.log(error);
+        if (error.statusText === "Payload Too Large") {
+          $("small#profile-img-validation")
+            .html("File must be less than 10MB")
+            .removeClass("text-muted text-success")
+            .addClass("text-danger");
+          showError(
+            $("#profile-pic-error-alert"),
+            $("#profile-pic-error-alert .msg"),
+            "Please upload a image that is less than 10MB"
+          );
+        } else {
+          showError(
+            $("#profile-pic-error-alert"),
+            $("#profile-pic-error-alert .msg"),
+            "Something went wrong while trying to update your profile picture."
+          );
+        }
+
         // const msg = error.responseJSON.errors[0].message;
         // handleUpdateErr(msg);
       });

@@ -94,7 +94,6 @@
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
           <h2 class="text-center">Update Your Profile</h2>
-          <p>A nice photo of yourself for your profile</p>
           <hr />
           <!-- Edit profile image section -->
           <div class="row mb-5">
@@ -231,7 +230,24 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <h5 class="text-center mt-3">
+            This should be a nice photo of yourself for your profile
+          </h5>
           <form class="update-profile-pic">
+            <!-- Error alerts section -->
+            <div
+              style="display: none"
+              id="profile-pic-error-alert"
+              class="alert alert-danger"
+              role="alert"
+            >
+              <span
+                class="glyphicon glyphicon-exclamation-sign"
+                aria-hidden="true"
+              ></span>
+              <span class="sr-only">Error:</span> <span class="ml-2 msg"></span>
+            </div>
+            <!-- Modal Body -->
             <div class="modal-body">
               <div class="d-flex justify-content-center">
                 <div id="profile-container">
