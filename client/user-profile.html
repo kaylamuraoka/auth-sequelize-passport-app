@@ -94,7 +94,21 @@
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
           <h2 class="text-center">Update Your Profile</h2>
+          <p>A nice photo of yourself for your profile</p>
           <hr />
+          <!-- Edit profile image section -->
+          <div class="row mb-5">
+            <div class="col-12">
+              <div id="profile-container">
+                <image class="user-avatar" src="" alt="" />
+              </div>
+              <!-- Button to trigger Edit Profile Picture modal -->
+              <button class="btn btn-default change-profile-pic">
+                Edit Profile Picture
+              </button>
+            </div>
+          </div>
+
           <form class="update-user pt-1">
             <!-- Error alerts section -->
             <div
@@ -194,6 +208,70 @@
       </div>
     </div>
 
+    <!-- Modal to change user's profile picture -->
+    <div
+      class="modal fade"
+      id="change-profile-pic-modal"
+      tabindex="-1"
+      aria-labelledby="change-profile-pic-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="change-profile-pic-label">
+              Edit Profile Picture
+            </h4>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form class="update-profile-pic">
+            <div class="modal-body">
+              <div class="d-flex justify-content-center">
+                <div id="profile-container">
+                  <image class="user-avatar" id="profileImage" src="" alt="" />
+                  <div class="icon-container">
+                    <i class="fas fa-camera camera-icon"></i>
+                  </div>
+
+                  <input
+                    id="profile-img-input"
+                    type="file"
+                    name="profile_image"
+                    placeholder="Profile Image"
+                    accept="image/png, image/jpeg"
+                  />
+                </div>
+              </div>
+              <small
+                class="form-text text-center text-muted"
+                id="profile-img-validation"
+                >Choose Image</small
+              >
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -205,12 +283,15 @@
       integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
       crossorigin="anonymous"
     ></script>
+
     <!-- Alert styling  -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- jQuery CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- Jquery  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- For bootstrap modal popups -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Font Awesome kit's code -->
     <script
       src="https://kit.fontawesome.com/b7705bf7e8.js"

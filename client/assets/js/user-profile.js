@@ -1,6 +1,7 @@
 $(document).ready(function () {
   // Getting references to our form and input
   const updateUserForm = $("form.update-user");
+  const updateProfilePicForm = $("form.update-profile-pic");
   const firstNameInput = $("input#firstName-input");
   const lastNameInput = $("input#lastName-input");
   const phoneInput = $("input#phone-input");
@@ -28,6 +29,8 @@ $(document).ready(function () {
     lastNameInput.val(data.lastName);
     $("#lastUpdate").text(data.updatedAt);
     $("#assignedRole").text(data.role);
+    $(".user-avatar").attr("src", data.avatar);
+    $(".user-avatar").attr("alt", `${data.fullName}'s Profile Image`);
   });
 
   // Happens when updateUserForm is submitted
@@ -57,6 +60,29 @@ $(document).ready(function () {
       );
       return;
     }
+  });
+
+  // Happens when updateProfilePicForm is submitted
+  updateProfilePicForm.on("submit", (event) => {
+    event.preventDefault();
+
+    const newAvatar = $("#profileImage").attr("src");
+    // if (
+    //   checkName(updatedUser.firstName) &&
+    //   checkName(updatedUser.lastName) &&
+    //   checkEmail(updatedUser.email) &&
+    //   checkPhone(updatedUser.phone)
+    // ) {
+    // Send the POST request
+    updateUserAvatar(newAvatar);
+    // } else {
+    //   showError(
+    //     errorBox,
+    //     errorMsg,
+    //     "You must fix all errors before you can proceed"
+    //   );
+    //   return;
+    // }
   });
 
   deleteUserBtn.on("click", (event) => {
@@ -103,6 +129,27 @@ $(document).ready(function () {
       .catch((error) => {
         const msg = error.responseJSON.errors[0].message;
         handleUpdateErr(msg);
+      });
+  };
+
+  // This function does an API call to update user's profile picture
+  const updateUserAvatar = (newAvatar) => {
+    $.ajax({
+      url: "/api/change_avatar",
+      type: "PUT",
+      data: { avatar: newAvatar },
+    })
+      .then(() => {
+        $("#change-profile-pic-modal").modal("toggle");
+        successAlert(
+          "Your profile picture has been updated",
+          "/user-dashboard"
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+        // const msg = error.responseJSON.errors[0].message;
+        // handleUpdateErr(msg);
       });
   };
 
@@ -209,5 +256,22 @@ $(document).ready(function () {
         "You must provide a valid phone number. For example: 8081234567"
       );
     }
+  });
+
+  $(".change-profile-pic").click(function (e) {
+    $("#change-profile-pic-modal").modal("toggle");
+  });
+
+  // Functions for uploading profile image
+  $("#profileImage").click(function (e) {
+    $("input#profile-img-input").click();
+  });
+
+  $(".icon-container").click(function (e) {
+    $("input#profile-img-input").click();
+  });
+
+  $("input#profile-img-input").change(function () {
+    readURL(this, $("#profileImage"), $("small#profile-img-validation"));
   });
 });
