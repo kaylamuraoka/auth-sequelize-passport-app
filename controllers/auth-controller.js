@@ -242,7 +242,20 @@ const authController = {
             console.log("Image succesfully uploaded to Cloudinary");
             console.log("Secure URL: " + image.secure_url); // used to display the image on the front-end
             console.log("Public ID: " + image.public_id); // allows us to access and delete the image from Cloudinary.
-            res.status(200).json(image);
+            db.User.update(
+              { avatar: image.secure_url, cloudinaryId: image.public_id },
+              {
+                where: {
+                  id: req.user.id,
+                },
+              }
+            )
+              .then((dbUser) => {
+                res.status(200).json(dbUser);
+              })
+              .catch((error) => {
+                res.status(401).json(error);
+              });
           })
           .catch((error) => {
             console.log("error: " + error);
