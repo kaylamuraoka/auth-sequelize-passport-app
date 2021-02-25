@@ -144,10 +144,8 @@ const authController = {
   // -------------------------------------------------------------------
   // Function for deleting a user
   deleteUser(req, res) {
-    if (!req.user) {
-      // The user is not logged in
-      return;
-    }
+    // Delete image from Cloudinary
+    cloudinary.uploader.destroy(req.user.cloudinaryId);
 
     // Delete user from db
     db.User.destroy({
@@ -156,19 +154,7 @@ const authController = {
       },
     })
       .then((dbUser) => {
-        // Delete image from Cloudinary
-        cloudinary.uploader
-          .destroy(req.user.cloudinaryId)
-          .then((result) => {
-            res.status(200).json(dbUser);
-          })
-          .catch((error) => {
-            console.log("error: " + error);
-            res.status(500).json({
-              message: "failure",
-              error,
-            });
-          });
+        res.status(200).json(dbUser);
       })
       .catch((error) => {
         res.status(401).json(error);
