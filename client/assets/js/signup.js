@@ -5,7 +5,6 @@ $(document).ready(function () {
   const lastNameInput = $("input#lastName-input");
   const emailInput = $("input#email-input");
   const phoneInput = $("input#phone-input");
-  const profileImgInput = $("input#profile-img-input");
   const roleSelect = $("select#role-input");
   const passwordInput = $("input#password-input");
   const confirmPasswordInput = $("input#confirm-password-input");
@@ -18,7 +17,6 @@ $(document).ready(function () {
   const roleFeedback = $("small#role-validation");
   const passwordFeedback = $("small#pwd-validation");
   const confirmPasswordFeedback = $("small#confirm-pwd-validation");
-  const profileImgFeedback = $("small#profile-img-validation");
 
   // Getting references to our error alert section
   const errorBox = $("#alert");
@@ -38,6 +36,7 @@ $(document).ready(function () {
       avatar: $("#profileImage").attr("src"),
     };
     const confirmPwd = confirmPasswordInput.val();
+
     // Validate that input fields meet all specified requirements
     if (
       checkName(userData.firstName) &&
@@ -204,11 +203,11 @@ $(document).ready(function () {
 
   // Functions for uploading profile image
   $("#profileImage").click(function (e) {
-    profileImgInput.click();
+    $("input#profile-img-input").click();
   });
 
   $(".icon-container").click(function (e) {
-    profileImgInput.click();
+    $("input#profile-img-input").click();
   });
 
   $("input#profile-img-input").change(function () {
