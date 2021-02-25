@@ -26,7 +26,7 @@ module.exports = (app) => {
   app.put("/api/change_avatar", authController.updateAvatar);
 
   // DELETE Route for deleting a user account.
-  app.delete("/api/user_data", authController.deleteUser);
+  app.delete("/api/delete_user", authController.deleteUser);
 
   // POST Route for sending a link to the user's email to reset their password
   app.post("/api/forgot_password", authController.sendResetLink);

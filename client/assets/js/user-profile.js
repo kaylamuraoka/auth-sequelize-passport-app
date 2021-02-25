@@ -93,7 +93,7 @@ $(document).ready(function () {
       "Your account has been deleted successfully.",
       "Your account is safe :)",
       deleteUser,
-      "/user-dashboard"
+      "/user-profile"
     );
   });
 
@@ -101,10 +101,10 @@ $(document).ready(function () {
   const deleteUser = () => {
     $.ajax({
       method: "DELETE",
-      url: "/api/user_data",
+      url: "/api/delete_user",
     })
       .then(() => {
-        window.location.replace("/logout");
+        location.replace("/logout");
       })
       .catch((error) => {
         console.log(error);
@@ -124,7 +124,7 @@ $(document).ready(function () {
       data: updatedUser,
     })
       .then(() => {
-        successAlert("Your profile has been updated", "/user-dashboard");
+        successAlert("Your profile has been updated", "/user-profile");
       })
       .catch((error) => {
         const msg = error.responseJSON.errors[0].message;
@@ -141,11 +141,7 @@ $(document).ready(function () {
     })
       .then(() => {
         $("#change-profile-pic-modal").modal("toggle");
-        // successAlert(
-        //   "Your profile picture has been updated",
-        //   "/user-dashboard"
-        // );
-        location.reload();
+        successAlert("Your profile picture has been updated", "/user-profile");
       })
       .catch((error) => {
         console.log(error);
