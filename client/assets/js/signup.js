@@ -45,7 +45,8 @@ $(document).ready(function () {
       checkPhone(userData.phone) &&
       checkRole(userData.role) &&
       checkPwdMatch(userData.password, confirmPwd) &&
-      checkPwd(userData.password)
+      checkPwd(userData.password) &&
+      checkFile($("input#profile-img-input"))
     ) {
       // If we have all required inputs, run the signUpUser function
       signUpUser(userData);
@@ -55,6 +56,13 @@ $(document).ready(function () {
         errorMsg,
         "Please make sure you fill in all required fields and fix all errors before proceeding"
       );
+      if (!checkFile($("input#profile-img-input"))) {
+        $("small#profile-img-validation")
+          .html("Please upload a profile image")
+          .removeClass("text-muted text-success")
+          .addClass("text-danger");
+      }
+
       return;
     }
   });
